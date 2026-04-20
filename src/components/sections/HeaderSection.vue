@@ -21,11 +21,6 @@ const isMobileMenuOpen = ref(false);
   >
     <div class="mx-auto w-full max-w-7xl px-4 md:px-6">
       <div class="flex h-[82px] items-center justify-between gap-4">
-        
-        <!-- Logo Text -->
-        <a href="#" class="shrink-0 text-xl font-extrabold tracking-wider text-white flex items-center z-50">
-          <span class="text-[#ff6224] text-2xl mr-1">T</span>UIT<span class="text-white/50 text-sm ml-1 font-normal">.uz</span>
-        </a>
 
         <!-- Desktop Nav -->
         <nav class="hidden lg:flex items-center gap-8 justify-center flex-1" aria-label="Asosiy navigatsiya">
