@@ -25,13 +25,12 @@ const router = createRouter({
   ]
 })
 
-// Oddiy avtorizatsiya himoyasi (test uchun LocalStorage dan foydalanamiz)
-router.beforeEach((to, from, next) => {
+// Oddiy avtorizatsiya himoyasi (test uchun LocalStorage dan foydalanamiz)      
+router.beforeEach((to, from) => {
   if (to.meta.requiresAuth && !localStorage.getItem('admin_auth')) {
-    next('/admin/login')
-  } else {
-    next()
+    return '/admin/login'
   }
+  return true
 })
 
 export default router

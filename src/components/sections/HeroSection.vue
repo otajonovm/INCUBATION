@@ -26,7 +26,7 @@ const loopItems = [...serviceItems, ...serviceItems];
         <!-- Video Background (adapted from your snippet) -->
         <div class="absolute inset-0 z-0 overflow-hidden bg-[#070511]">
           <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-50 transition-opacity duration-1000" id="myVideo" poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa">
-            <source src="https://cdn.pixabay.com/video/2020/05/25/40131-424933934_large.mp4" type="video/mp4">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-connection-lines-in-space-20078-large.mp4" type="video/mp4">
           </video>
           <div class="absolute inset-0 bg-[#070511]/70 backdrop-blur-[2px]"></div> <!-- Dark overlay for text readability -->
         </div>
