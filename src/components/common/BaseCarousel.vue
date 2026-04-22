@@ -105,7 +105,7 @@ onBeforeUnmount(() => {
         <div
           v-for="(item, index) in items"
           :key="index"
-          class="shrink-0 min-w-0"
+          class="shrink-0 min-w-0 flex"
           :style="{ flexBasis: `${100 / visibleCount}%` }"
         >
           <slot name="item" :item="item" :index="index" />

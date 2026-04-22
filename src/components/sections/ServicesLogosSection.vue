@@ -30,7 +30,7 @@ const duplicatedLogos = [...techLogos, ...techLogos]
 
 const getIcon = (title) => {
   if (title === 'Design') {
-    return `<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f3a8/512.gif" class="w-20 h-20 object-contain drop-shadow-sm group-hover:scale-110 transition-transform duration-300" alt="Design" />`
+    return `<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f6e0_fe0f/512.gif" onerror="this.onerror=null;this.src='https://fonts.gstatic.com/s/e/notoemoji/latest/1f6e0_fe0f/512.png'" class="w-20 h-20 object-contain drop-shadow-sm group-hover:scale-110 transition-transform duration-300" alt="Design" />`
   } else if (title === 'Robotics') {
     return `<img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f916/512.gif" class="w-20 h-20 object-contain drop-shadow-sm group-hover:scale-110 transition-transform duration-300" alt="Robotics" />`
   } else {
@@ -51,7 +51,7 @@ const getIcon = (title) => {
         :visible="{ opacity: 1, y: 0, transition: { duration: 800, type: 'spring' } }"
         class="flex flex-col items-center justify-center text-center max-w-3xl mx-auto mb-16"
       >
-        <div class="inline-block px-4 py-1.5 rounded-full bg-[#2c4deb]/10 text-[#2c4deb] font-bold text-sm mb-4 tracking-wider uppercase">Inklyuziv Muhit</div>
+        <div class="inline-block px-4 py-1.5 rounded-full bg-[#2c4deb]/10 text-[#2c4deb] font-bold text-sm mb-4 tracking-wider uppercase">{{ services.badge }}</div>
         <h2 class="m-0 text-4xl md:text-5xl lg:text-[52px] font-extrabold leading-[1.15] bg-clip-text text-transparent bg-linear-to-r from-[#1a2744] to-[#2c4deb] pb-2">{{ services.sectionTitle }}</h2>
         <p class="mt-6 text-[#53627f] text-base md:text-lg leading-relaxed font-medium">{{ services.sectionDescription }}</p>
       </div>
@@ -83,36 +83,36 @@ const getIcon = (title) => {
           :visible="{ opacity: 1, transition: { duration: 1000, delay: 300 } }"
           class="text-center font-bold text-[#8a99b5] uppercase tracking-[0.2em] text-sm mb-10"
         >
-          Biz bilan ishlashda qo'llaniladigan texnologiyalar
+          {{ services.techTitle }}
         </p>
         
-        <div class="relative flex overflow-hidden group py-4">
+        <div class="relative flex overflow-hidden group py-6">
           <!-- Marquee Track 1 -->
-          <div class="flex whitespace-nowrap animate-marquee items-center gap-6 pr-6">
-             <span 
-                v-for="(logo, i) in duplicatedLogos" 
-                :key="'m1-'+i" 
-                class="inline-flex items-center justify-center gap-3 px-7 py-3 bg-white rounded-full border border-gray-100 shadow-[0_8px_16px_rgba(0,0,0,0.04)] text-[#1a2744] font-bold text-lg hover:scale-105 hover:text-[#2c4deb] hover:border-[#2c4deb]/30 transition-all cursor-default"
+          <div class="flex whitespace-nowrap animate-marquee items-center gap-4 md:gap-6 pr-4 md:pr-6 shrink-0">
+             <span
+                v-for="(logo, i) in duplicatedLogos"
+                :key="'m1-'+i"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-7 md:py-3 bg-white rounded-full border border-gray-100 shadow-[0_8px_16px_rgba(0,0,0,0.04)] text-[#1a2744] font-bold text-sm md:text-lg hover:scale-105 hover:text-[#2c4deb] hover:border-[#2c4deb]/30 transition-all cursor-default"
              >
-                <img :src="logo.icon" :alt="logo.name" class="w-7 h-7 object-contain drop-shadow-sm" />
+                <img :src="logo.icon" :alt="logo.name" class="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-sm" />
                 {{ logo.name }}
              </span>
           </div>
           <!-- Marquee Track 2 -->
-          <div class="flex whitespace-nowrap animate-marquee2 absolute top-4 items-center gap-6 pr-6">
-             <span 
-                v-for="(logo, i) in duplicatedLogos" 
-                :key="'m2-'+i" 
-                class="inline-flex items-center justify-center gap-3 px-7 py-3 bg-white rounded-full border border-gray-100 shadow-[0_8px_16px_rgba(0,0,0,0.04)] text-[#1a2744] font-bold text-lg hover:scale-105 hover:text-[#2c4deb] hover:border-[#2c4deb]/30 transition-all cursor-default"
+          <div class="flex whitespace-nowrap animate-marquee items-center gap-4 md:gap-6 pr-4 md:pr-6 shrink-0" aria-hidden="true">
+             <span
+                v-for="(logo, i) in duplicatedLogos"
+                :key="'m2-'+i"
+                class="inline-flex items-center justify-center gap-2 px-5 py-2 md:px-7 md:py-3 bg-white rounded-full border border-gray-100 shadow-[0_8px_16px_rgba(0,0,0,0.04)] text-[#1a2744] font-bold text-sm md:text-lg hover:scale-105 hover:text-[#2c4deb] hover:border-[#2c4deb]/30 transition-all cursor-default"
              >
-                <img :src="logo.icon" :alt="logo.name" class="w-7 h-7 object-contain drop-shadow-sm" />
+                <img :src="logo.icon" :alt="logo.name" class="w-6 h-6 md:w-7 md:h-7 object-contain drop-shadow-sm" />
                 {{ logo.name }}
              </span>
           </div>
 
           <!-- Gradient Fade effect for ends -->
-          <div class="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#f8f9fc] to-transparent pointer-events-none z-10"></div>
-          <div class="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#f8f9fc] to-transparent pointer-events-none z-10"></div>
+          <div class="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#f8f9fc] to-transparent pointer-events-none z-10"></div>
+          <div class="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#f8f9fc] to-transparent pointer-events-none z-10"></div>
         </div>
       </div>
 
@@ -122,27 +122,15 @@ const getIcon = (title) => {
 
 <style scoped>
 .animate-marquee {
-  animation: marquee 40s linear infinite;
-  min-width: 100%;
+  animation: marquee 50s linear infinite;
 }
 
-.animate-marquee2 {
-  animation: marquee2 40s linear infinite;
-  min-width: 100%;
-}
-
-.group:hover .animate-marquee,
-.group:hover .animate-marquee2 {
+.group:hover .animate-marquee {
   animation-play-state: paused;
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0%); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(-100%); }
-}
-
-@keyframes marquee2 {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(0%); }
 }
 </style>

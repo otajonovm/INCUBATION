@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import BaseCarousel from '../common/BaseCarousel.vue'
+import { supabase } from '../../supabase'
+import { useLocalizedContent } from '../../composables/useLocalizedContent'
 
 const props = defineProps({
   news: {
@@ -9,30 +11,47 @@ const props = defineProps({
   },
 })
 
-// LocalStorage dan bazamizni olamiz
 const localNewsItems = ref([])
+let newsChannel = null
+const { locale, localizedKey, getLocalizedValue } = useLocalizedContent()
 
-onMounted(() => {
-  const savedNews = localStorage.getItem('site_news')
-  if (savedNews) {
-    localNewsItems.value = JSON.parse(savedNews)
-  } else {
-    // Default bo'sh bo'lmasligi uchun prop dan yoki dummy ma'lumot olib turamiz
-    localNewsItems.value = [
-      { title: 'Inkubatsiya markazi tadbiri', image: '/uploads/yangiliklar/rasm/2022/Dec/06/CanK25-LcRc-.jpg' },
-      { title: 'Taqdimot va seminar', image: '/uploads/slayder/rasm/2022/Dec/06/Z9uE04aZeZmx.png' },
-      { title: 'Laboratoriya muhiti', image: '/uploads/slayder/rasm/2022/Dec/06/b9nHg-C-89iB.png' },
-      { title: 'Yangi coworking maydoni', image: '/uploads/slayder/rasm/2022/Dec/06/bCntiTWHoqaQ.png' },
-      { title: 'Loyihalar muhokamasi', image: '/uploads/slayder/rasm/2022/Dec/06/A3tt2tL9Dd02.png' }
-    ]
+const defaultNewsItems = [
+  { title: 'Inkubatsiya markazi tadbiri', image: '/uploads/yangiliklar/rasm/2022/Dec/06/CanK25-LcRc-.jpg' },
+  { title: 'Taqdimot va seminar', image: '/uploads/slayder/rasm/2022/Dec/06/Z9uE04aZeZmx.png' },
+  { title: 'Laboratoriya muhiti', image: '/uploads/slayder/rasm/2022/Dec/06/b9nHg-C-89iB.png' },
+  { title: 'Yangi coworking maydoni', image: '/uploads/slayder/rasm/2022/Dec/06/bCntiTWHoqaQ.png' },
+  { title: 'Loyihalar muhokamasi', image: '/uploads/slayder/rasm/2022/Dec/06/A3tt2tL9Dd02.png' },
+]
+
+const loadNewsFromSupabase = async () => {
+  const localized = await getLocalizedValue(supabase, 'site_news', defaultNewsItems)
+  localNewsItems.value = localized?.length ? localized : defaultNewsItems
+}
+
+onMounted(async () => {
+  await loadNewsFromSupabase()
+
+  newsChannel = supabase
+    .channel('site-news-updates')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'site_content', filter: `key=eq.${localizedKey('site_news')}` }, loadNewsFromSupabase)
+    .subscribe()
+})
+
+watch(locale, async () => {
+  if (newsChannel) {
+    await supabase.removeChannel(newsChannel)
   }
+  await loadNewsFromSupabase()
+  newsChannel = supabase
+    .channel(`site-news-updates-${locale.value}`)
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'site_content', filter: `key=eq.${localizedKey('site_news')}` }, loadNewsFromSupabase)
+    .subscribe()
+})
 
-  // Admin panelda o'zgartirilsa, darhol yangilanishi uchun window event listener
-  window.addEventListener('storage', (e) => {
-    if (e.key === 'site_news' && e.newValue) {
-      localNewsItems.value = JSON.parse(e.newValue)
-    }
-  })
+onUnmounted(() => {
+  if (newsChannel) {
+    supabase.removeChannel(newsChannel)
+  }
 })
 
 </script>

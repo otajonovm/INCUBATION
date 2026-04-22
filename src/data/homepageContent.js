@@ -2,12 +2,12 @@ const homepageContent = {
   brand: 'TUIT INCUBATION CENTER',
   nav: {
     links: [
-      { label: 'Markaz haqida', href: '#about' },
-      { label: 'TUIT Incubation Center', href: '#services' },
-      { label: 'Ilmiy Tadqiqot Loyihalari', href: '#research' },
-      { label: 'Jurnallar', href: '#news' },
+      { label: 'Markaz haqida', href: '/about' },
+      { label: 'TUIT Incubation Center', href: '/incubation' },
+      { label: 'Ilmiy Tadqiqot Loyihalari', href: '/research' },
+      { label: 'Jurnallar', href: '/journals' },
       { label: 'Konferensiyalar', href: '#tasks' },
-      { label: 'Tijoratlashtirish', href: '#team' },
+      { label: 'Tijoratlashtirish', href: '/commercialization' },
     ],
     cta: 'Roʻyxatdan oʻtish',
   },

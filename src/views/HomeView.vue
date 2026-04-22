@@ -7,10 +7,9 @@ import NewsCarouselSection from '../components/sections/NewsCarouselSection.vue'
 import TasksSection from '../components/sections/TasksSection.vue'
 import TeamCarouselSection from '../components/sections/TeamCarouselSection.vue'
 import FooterSection from '../components/sections/FooterSection.vue'
-import homepageContent from '../data/homepageContent'
-import { normalizeContent } from '../utils/textNormalize'
+import { useHomepageContent } from '../composables/useHomepageContent'
 
-const content = normalizeContent(homepageContent)
+const { content } = useHomepageContent()
 </script>
 
 <template>

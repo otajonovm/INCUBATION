@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { setLocale, SUPPORTED_LOCALES } from '../../i18n';
 
 defineProps({
   nav: {
@@ -9,6 +12,32 @@ defineProps({
 })
 
 const isMobileMenuOpen = ref(false);
+const router = useRouter();
+const route = useRoute();
+const { locale, t } = useI18n();
+
+const languageOptions = SUPPORTED_LOCALES;
+
+const changeLocale = (nextLocale) => {
+  setLocale(nextLocale);
+};
+
+const navigate = (href) => {
+  isMobileMenuOpen.value = false;
+  if (href.startsWith('#')) {
+    if (route.path !== '/') {
+      router.push('/').then(() => {
+        setTimeout(() => {
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      });
+    } else {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else {
+    router.push(href);
+  }
+};
 </script>
 
 <template>
@@ -28,6 +57,7 @@ const isMobileMenuOpen = ref(false);
             v-for="(link, index) in nav.links" 
             :key="link.label" 
             :href="link.href" 
+            @click.prevent="navigate(link.href)"
             v-motion
             :initial="{ opacity: 0, y: -10 }"
             :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 200, duration: 500 } }"
@@ -44,8 +74,21 @@ const isMobileMenuOpen = ref(false);
           v-motion
           :initial="{ opacity: 0, scale: 0.9 }"
           :enter="{ opacity: 1, scale: 1, transition: { delay: 600, duration: 400 } }"
-          class="shrink-0 flex items-center gap-4 z-50"
+          class="shrink-0 flex items-center gap-2 md:gap-4 z-50"
         >
+          <div class="hidden md:flex items-center rounded-full border border-white/15 bg-white/5 p-1" :aria-label="t('language.switcherAria')">
+            <button
+              v-for="lang in languageOptions"
+              :key="lang"
+              type="button"
+              @click="changeLocale(lang)"
+              class="px-2.5 py-1.5 rounded-full text-xs font-semibold transition-colors"
+              :class="locale === lang ? 'bg-white text-[#070511]' : 'text-white/80 hover:text-white'"
+            >
+              {{ t(`language.${lang}`) }}
+            </button>
+          </div>
+
           <a 
             href="#" 
             class="hidden sm:inline-flex group items-center gap-2 justify-center rounded-full bg-linear-to-r from-[#ff6224] to-[#ff4200] text-white px-5 py-[10px] md:py-[12px] md:px-[28px] text-[14px] md:text-[16px] font-bold shadow-[0_8px_20px_rgba(255,98,36,0.3)] hover:shadow-[0_12px_25px_rgba(255,98,36,0.4)] hover:-translate-y-1 transition-all duration-300"
@@ -74,11 +117,24 @@ const isMobileMenuOpen = ref(false);
         v-if="isMobileMenuOpen" 
         class="lg:hidden fixed inset-x-0 top-[82px] bottom-0 bg-[#070511] flex flex-col pt-10 px-6 gap-6 z-40 overflow-y-auto"
       >
+        <div class="flex items-center gap-2 mb-2 rounded-full border border-white/15 bg-white/5 p-1 w-fit" :aria-label="t('language.switcherAria')">
+          <button
+            v-for="lang in languageOptions"
+            :key="`mobile-${lang}`"
+            type="button"
+            @click="changeLocale(lang)"
+            class="px-3 py-1.5 rounded-full text-xs font-semibold transition-colors"
+            :class="locale === lang ? 'bg-white text-[#070511]' : 'text-white/80 hover:text-white'"
+          >
+            {{ t(`language.${lang}`) }}
+          </button>
+        </div>
+
         <a 
           v-for="link in nav.links" 
           :key="link.label" 
           :href="link.href" 
-          @click="isMobileMenuOpen = false"
+          @click.prevent="navigate(link.href)"
           class="text-white/80 font-medium text-[22px] hover:text-white pb-4 border-b border-white/5"
         >
           {{ link.label }}

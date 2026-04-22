@@ -1,6 +1,9 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useIntersectionObserver, useTransition, TransitionPresets } from '@vueuse/core'
+import { supabase } from '../../supabase'
+import { useI18n } from 'vue-i18n'
+import { useLocalizedContent } from '../../composables/useLocalizedContent'
 
 defineProps({
   stats: {
@@ -19,6 +22,8 @@ const currentStats = ref({
 
 const statSectionRef = ref(null)
 const isVisible = ref(false)
+const { t } = useI18n()
+const { locale, getLocalizedValue } = useLocalizedContent()
 
 useIntersectionObserver(
   statSectionRef,
@@ -61,12 +66,13 @@ const displayStats = computed(() => ({
   students: formatStat(numStudents, currentStats.value.students)
 }))
 
-// Sahifa yuklanganda LocalStorage da ma'lumot bo'lsa uni yuklab olish
-onMounted(() => {
-  const savedStats = localStorage.getItem('site_stats')
-  if (savedStats) {
-    currentStats.value = JSON.parse(savedStats)
-  }
+// Sahifa yuklanganda Supabase dan ma'lumotni yuklash
+onMounted(async () => {
+  currentStats.value = await getLocalizedValue(supabase, 'site_stats', currentStats.value)
+})
+
+watch(locale, async () => {
+  currentStats.value = await getLocalizedValue(supabase, 'site_stats', currentStats.value)
 })
 </script>
 
@@ -75,22 +81,20 @@ onMounted(() => {
 
     <div class="mx-auto w-full max-w-7xl px-4 md:px-6 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center relative z-10">
       
-      <!-- Left Content -->
       <div 
         v-motion
         :initial="{ opacity: 0, x: -50 }"
         :visible="{ opacity: 1, x: 0, transition: { duration: 800, type: 'spring' } }"
       >
-        <h2 class="m-0 text-4xl md:text-5xl lg:text-[56px] font-extrabold leading-[1.15] text-[#1a2744]">Loyihangiz uchun eng yaxshi veb va mobil ilovalarni ishlab chiquvchilarni yollang</h2>
+        <h2 class="m-0 text-4xl md:text-5xl lg:text-[56px] font-extrabold leading-[1.15] text-[#1a2744]">{{ stats.title }}</h2>
         <p v-for="(line, index) in stats.description" :key="index" class="mt-6 md:mt-8 text-[#53627f] text-base md:text-lg leading-relaxed font-medium">{{ line }}</p>
         
         <a href="/site/ilmiy_tadqiqot" class="mt-10 inline-flex items-center justify-center rounded-full bg-linear-to-r from-[#2c4deb] to-[#5e73ff] text-white px-8 py-3.5 md:px-[34px] md:py-[14px] text-sm md:text-[16px] font-bold shadow-[0_10px_30px_rgba(94,115,255,0.3)] hover:shadow-[0_15px_40px_rgba(94,115,255,0.5)] hover:-translate-y-1 transition-all duration-300 gap-2 group">
-          Batafsil
+          {{ stats.cta }}
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
 
-      <!-- Right Content (Stat Cards) -->
       <div class="relative w-full">
         <div 
           v-motion
@@ -98,31 +102,29 @@ onMounted(() => {
           :visible="{ opacity: 1, x: 0, transition: { duration: 800, delay: 200, type: 'spring' } }"
           class="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 mt-8 lg:mt-0"
         >
-          <!-- Card 1 -->
           <article class="bg-[#fcfdfd] border border-gray-50 rounded-[28px] p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.02)] flex flex-col justify-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] group sm:-translate-y-6">
             <div class="w-16 h-16 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f680/512.gif" alt="Startap" class="w-full h-full object-contain drop-shadow-sm" />
             </div>
             <p class="m-0 text-[#1a2744] text-[40px] md:text-[50px] font-bold leading-none tracking-tight">{{ displayStats.startups }}</p>
-            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">Startap loyihalar</p>
+            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">{{ t('homePage.stats.cardLabels.startups') }}</p>
           </article>
 
-          <!-- Card 2 -->
           <article class="bg-[#fcfdfd] border border-gray-50 rounded-[28px] p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.02)] flex flex-col justify-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] group sm:translate-y-6">
             <div class="w-16 h-16 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4bb/512.gif" alt="IT Loyihalar" class="w-full h-full object-contain drop-shadow-sm" />
             </div>
             <p class="m-0 text-[#1a2744] text-[40px] md:text-[50px] font-bold leading-none tracking-tight">{{ displayStats.itProjects }}</p>
-            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">IT Loyihalar</p>
+            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">{{ t('homePage.stats.cardLabels.itProjects') }}</p>
           </article>
         
           <!-- Card 3 -->
           <article class="bg-[#fcfdfd] border border-gray-50 rounded-[28px] p-6 md:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.02)] flex flex-col justify-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] group sm:-translate-y-6">
             <div class="w-16 h-16 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4b0/512.gif" alt="Investitsiya" class="w-full h-full object-contain drop-shadow-sm" />
+              <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f4b8/512.gif" alt="Investitsiya" class="w-full h-full object-contain drop-shadow-sm" />
             </div>
             <p class="m-0 text-[#1a2744] text-[40px] md:text-[50px] font-bold leading-none tracking-tight">{{ displayStats.investments }}</p>
-            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">Jalb qilingan investitsiya ($)</p>
+            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">{{ t('homePage.stats.cardLabels.investments') }}</p>
           </article>
 
           <!-- Card 4 -->
@@ -131,7 +133,7 @@ onMounted(() => {
               <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f393/512.gif" alt="Talabalar" class="w-full h-full object-contain drop-shadow-sm" />
             </div>
             <p class="m-0 text-[#1a2744] text-[40px] md:text-[50px] font-bold leading-none tracking-tight">{{ displayStats.students }}</p>
-            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">O'qitilgan talabalar</p>
+            <p class="mt-3 mb-0 text-[#53627f] text-sm md:text-base font-normal">{{ t('homePage.stats.cardLabels.students') }}</p>
           </article>
         </div>
       </div>

@@ -1,0 +1,205 @@
+{
+  "common": {
+    "home": "Bosh sahifa",
+    "save": "Saqlash",
+    "close": "Yopish",
+    "loading": "Yuklanmoqda...",
+    "notFound": "Topilmadi"
+  },
+  "language": {
+    "uz": "O'zbek",
+    "ru": "Русский",
+    "en": "English",
+    "switcherAria": "Tilni tanlash"
+  },
+  "nav": {
+    "about": "Markaz haqida",
+    "incubation": "TUIT Incubation Center",
+    "research": "Ilmiy Tadqiqot Loyihalari",
+    "journals": "Jurnallar",
+    "conferences": "Konferensiyalar",
+    "commercialization": "Tijoratlashtirish",
+    "cta": "Roʻyxatdan oʻtish"
+  },
+  "homePage": {
+    "hero": {
+      "title": "TUIT INCUBATION CENTER",
+      "description": "Jamiyatning texnologik innovatsiyani qabul qilish darajasi uning taraqqiyotida hal qiluvchi omildir",
+      "videoText": "Tijoratlashtirishga moʻljallangan loyihalar.",
+      "videoSubtext": "Startap, ilmiy innovatsion ishlanmalar.",
+      "cta": "Loyihangizni roʻyxatdan oʻtkazing",
+      "modalTitle": "Ma'lumotlarni to'ldiring",
+      "fullName": "F.I.Sh *",
+      "projectName": "Loyiha nomi *",
+      "phone": "Telefon raqam *",
+      "email": "Email *",
+      "uploadTitle": "Startap loyihangizning taqdimotini yuklang *",
+      "chooseFile": "Fayl tanlang",
+      "fileNotSelected": "Fayl tanlanmagan"
+    },
+    "stats": {
+      "title": "Loyihangiz uchun eng yaxshi veb va mobil ilovalarni ishlab chiquvchilarni yollang",
+      "description": [
+        "Startap dunyodagi eng qiyin muammolarni hal qilishga yordam beradi. Startap va bogʻlangan platformalarda jahon brendlari uchun raqamli mahsulotlarni taqdim etadi.",
+        "Ekspertiza Startapga dunyodagi eng qiyin muammolarni yengishda yordam beradi. Startap internetda jahon brendlari uchun raqamli mahsulotlarni taqdim etadi."
+      ],
+      "cta": "Batafsil",
+      "cardLabels": {
+        "startups": "Startap loyihalar",
+        "itProjects": "IT loyihalar",
+        "investments": "Jalb qilingan investitsiya ($)",
+        "students": "O'qitilgan talabalar"
+      }
+    },
+    "services": {
+      "badge": "Inklyuziv muhit",
+      "sectionTitle": "TUIT INCUBATION CENTER",
+      "sectionDescription": "Hozirgi kunda ushbu markaz 24/7 rejimda ish olib bormoqda. Bu yerda talabalar o‘z startap loyihalarini ishlab chiqishlari uchun barcha sharoitlar mavjud.",
+      "cards": [
+        {
+          "title": "Design",
+          "text": "Sizda gʻoya yoki startap loyiha mavjud lekin uni qanday amalga oshirishni bilmaysiz. Biz sizga bu borada yordam beramiz."
+        },
+        {
+          "title": "Robotics",
+          "text": "Sizning biznesingizga dasturiy taʼminot orqali ko‘maklashamiz va loyihalaringiz rivoji uchun qo‘shimcha taklif va fikrlar kiritamiz."
+        },
+        {
+          "title": "Coworking",
+          "text": "Biz bilan dasturlash sohasida bilim va ko‘nikmalar olishingiz va bu soha bo‘yicha katta malakali dasturchi bo‘lishingiz mumkin."
+        }
+      ],
+      "techTitle": "Biz bilan ishlashda qo'llaniladigan texnologiyalar"
+    },
+    "news": {
+      "title": "Yangiliklar va eʻlonlar",
+      "viewAll": "Barcha loyihalarni ko‘rish"
+    },
+    "tasks": {
+      "title": "Asosiy vazifalar",
+      "points": [
+        "Universitetning professor o‘qituvchilar, tadqiqotchilar, magistrantlar va iqtidorli talabalarning STARTAP loyihalarini qo‘llab-quvvatlash;",
+        "STARTAP tanlovlar va musobaqalar tashkil etish asosida iqtidorli yosh dasturchilarni saralab olish;",
+        "“Bir million dasturchi” loyihasi doirasida malaka oshirgan professor o‘qituvchilar yordamida Toshkent axborot texnologiyalari universiteti talabalarini loyihaga keng jalb etish orqali tajriba va ishtirokchilar sonini oshirish;",
+        "Inkubatsiya markazi tomonidan universitet va tashkilotlar uchun dasturiy mahsulotlar yaratish hamda amaliyotga joriy qilish;",
+        "Toshkent axborot texnologiyalari universitetining professor o‘qituvchilari va iqtidorli talabalarini keng jalb etish maqsadida Toshkent IT-park rezidentlari bilan hamkorlikda master-klass, trening, uchrashuvlar va onlayn vebinarlar tashkil etish."
+      ]
+    },
+    "team": {
+      "title": "Bizning jamoa"
+    },
+    "footer": {
+      "newsletterTitle": "Oldinga harakat qilishga va eng soʻnggi maʼlumotlarni olishga tayyormiz.",
+      "newsletterPlaceholder": "Elektron pochtangizni kiriting",
+      "socialTitle": "Bizni kuzatib boring",
+      "usefulLinksTitle": "Foydali havola",
+      "usefulLinks": [
+        "Markaz haqida",
+        "TUIT Incubation Center",
+        "Ilmiy Tadqiqot Loyihalari",
+        "Jurnallar",
+        "Konferensiyalar",
+        "Tijoratlashtirish"
+      ],
+      "contactTitle": "Biz bilan aloqa",
+      "contacts": [
+        "TUIT INCUBATION CENTER",
+        "Manzil: Toshkent 100084, Amir Temur shox ko‘chasi 108 uy",
+        "Ish grafigi: Dushanbadan - Jumagacha (9-00 - 18-00 gacha)",
+        "Telefon: +998 71 238 64 15",
+        "E-mail: info@tuit.uz",
+        "Yakshanba dam olish kuni"
+      ],
+      "copyright": "© 2022 TUIT INCUBATION CENTER"
+    }
+  },
+  "aboutPage": {
+    "title": "Markaz haqida",
+    "subtitle": "TUIT Incubation Center haqida to'liq ma'lumot",
+    "employeesTitle": "Xodimlar ro'yxati:",
+    "addressLabel": "Manzil:",
+    "address": "Toshkent 100084, Amir Temur shox ko'chasi 108 uy",
+    "building": "TATU (E blok)",
+    "paragraphs": [
+      "Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universitetining Ilmiy tadqiqot va texnologiyalar transferi markazi.",
+      "Fundamental, amaliy, innovatsion va startap ilmiy-tadqiqot loyihalari tanlovini tashkil etish, reja tuzish va amalga oshirish. Shu bilan birga ilmiy-tadqiqot loyihalarni sonini oshirish, ularda yosh olimlarning ishtirokini kengaytirish va ilmiy faoliyat natijalarini ishlab chiqarishga tadbiq etish.",
+      "Davlat dasturlari doirasida amalga oshirilayotgan loyihalarni yuritish uchun zarur bo‘lgan tashkiliy hujjatlarni rasmiylashtirish, loyihalar smetalarini tuzish va mablag‘larni to‘g‘ri taqsimlanishini nazorat qilish.",
+      "Iqtidorli yoshlar o‘rtasida startap va innovatsion loyihalar tanlovini tashkil etish hamda kichik innovatsion loyihalarning samarali faoliyatini rivojlantirish.",
+      "Universitetning ilmiy ishlari va tadqiqot natijalarini tijoratlashtirish.",
+      "Respublika miqyosda o‘tkaziladigan ilmiy-amaliy anjumanlarni tashkillashtirish."
+    ]
+  },
+  "incubationPage": {
+    "title": "TUIT Incubation Center",
+    "subtitle": "TUIT Incubation Center faoliyati",
+    "descriptionTitle": "Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti \"TUIT INCUBATION CENTER\" faoliyati",
+    "descriptionParagraphs": [
+      "TUIT INCUBATION CENTER ilg'or startap g'oyalar va innovatsion ishlarni monitoring qilish, tanlash hamda inkubatsiya qilish, dasturiy mahsulot yaratish va amaliyotga tadbiq etish kabi vazifalarni bajaradi.",
+      "Markazda kovorking, dizayn, robototexnika va dasturchilar uchun maxsus bo'limlar mavjud bo'lib, talabalar o'z ilmiy g'oyalarini amalga oshiradilar.",
+      "Korxona va tashkilotlar bilan memorandumlar imzolash, talaba loyihalarini mahalliy va xorijiy investorlarga taqdim etish bo'yicha ishlar olib boriladi.",
+      "Yoshlar startap-loyihalarini rivojlantirish uchun qulay muhit yaratish markazning asosiy faoliyat yo'nalishidir."
+    ],
+    "projectsTitle": "Loyiha va Startaplar",
+    "emptyProjects": "Hozircha loyihalar mavjud emas."
+  },
+  "researchPage": {
+    "title": "Ilmiy tadqiqot loyihalari",
+    "subtitle": "TATU qoshidagi ilmiy tadqiqot markazi loyihalari",
+    "yearSuffix": "yil",
+    "projectsSuffix": "loyihalar",
+    "contract": "Shartnoma",
+    "leader": "Loyiha rahbari",
+    "notFoundForYear": "{year} yilda loyihalar topilmadi",
+    "emptyTitle": "Loyihalar mavjud emas",
+    "emptyDesc": "Hozircha ilmiy tadqiqot loyihalari ma'lumotlari kiritilmagan.",
+    "other": "Boshqa"
+  },
+  "journalsPage": {
+    "title": "Jurnallar",
+    "subtitle": "Universitetda faoliyat yuritayotgan ilmiy jurnallar haqida ma'lumotlar.",
+    "empty": "Hozircha jurnallar ma'lumoti mavjud emas.",
+    "openJournal": "Jurnal havolasini ochish",
+    "articleTitle": "Maqola yuborish",
+    "fullName": "F.I.Sh *",
+    "email": "Email *",
+    "phone": "Telefon raqam *",
+    "journalType": "Jurnal turi *",
+    "noJournal": "Jurnal mavjud emas",
+    "articleUpload": "Maqola yuborish *",
+    "chooseFile": "Fayl tanlash",
+    "fileNotSelected": "Fayl tanlanmagan",
+    "send": "Yuborish",
+    "contactTitle": "Biz bilan aloqa",
+    "contactSubtitle": "Xabarni olishimiz bilanoq, biz siz bilan bog'lanamiz",
+    "contactHours": "Biz mavjudmiz 24/7. Hozir qo'ng'iroq qiling.",
+    "emailLabel": "Email:",
+    "addressLabel": "Manzil:",
+    "requiredError": "Iltimos, barcha majburiy maydonlarni to'ldiring.",
+    "success": "Maqola yuborish so'rovi qabul qilindi."
+  },
+  "commercializationPage": {
+    "title": "Tijoratlashtirish",
+    "subtitle": "Ilmiy-tadqiqot natijalarini tijoratlashtirishga oid ma'lumotlar.",
+    "details": "Batafsil",
+    "features": "Funksiyalari",
+    "usage": "Qo'llanilish sohasi",
+    "prevImage": "Oldingi rasm",
+    "nextImage": "Keyingi rasm"
+  },
+  "commercializationDetail": {
+    "project": "Loyiha",
+    "defaultTitle": "Tijoratlashtirish loyihasi",
+    "defaultDesc": "Loyiha haqida to'liq ma'lumot sahifasi.",
+    "notFoundTitle": "Loyiha topilmadi",
+    "notFoundDesc": "Kechirasiz, bu loyiha mavjud emas yoki o‘chirilgan.",
+    "back": "Orqaga qaytish"
+  },
+  "login": {
+    "title": "Admin panel",
+    "subtitle": "Test muhiti: kirish uchun login va parolga admin yozing",
+    "error": "Xato! Test uchun Login: admin, Parol: admin ni kiriting.",
+    "username": "Login",
+    "password": "Parol",
+    "submit": "Tizimga kirish"
+  }
+}

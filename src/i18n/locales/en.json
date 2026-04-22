@@ -1,0 +1,205 @@
+{
+  "common": {
+    "home": "Home",
+    "save": "Save",
+    "close": "Close",
+    "loading": "Loading...",
+    "notFound": "Not found"
+  },
+  "language": {
+    "uz": "O'zbek",
+    "ru": "Русский",
+    "en": "English",
+    "switcherAria": "Select language"
+  },
+  "nav": {
+    "about": "About Center",
+    "incubation": "TUIT Incubation Center",
+    "research": "Research Projects",
+    "journals": "Journals",
+    "conferences": "Conferences",
+    "commercialization": "Commercialization",
+    "cta": "Register"
+  },
+  "homePage": {
+    "hero": {
+      "title": "TUIT INCUBATION CENTER",
+      "description": "The level of society's adoption of technological innovation is a key factor in its development",
+      "videoText": "Projects focused on commercialization.",
+      "videoSubtext": "Startups and scientific innovations.",
+      "cta": "Register your project",
+      "modalTitle": "Fill in your information",
+      "fullName": "Full name *",
+      "projectName": "Project name *",
+      "phone": "Phone number *",
+      "email": "Email *",
+      "uploadTitle": "Upload your startup presentation *",
+      "chooseFile": "Choose file",
+      "fileNotSelected": "No file selected"
+    },
+    "stats": {
+      "title": "Hire top web and mobile developers for your project",
+      "description": [
+        "Startups help solve the world's toughest problems and deliver digital products for global brands.",
+        "Expertise helps startups overcome difficult challenges and build impactful digital products."
+      ],
+      "cta": "Learn more",
+      "cardLabels": {
+        "startups": "Startup projects",
+        "itProjects": "IT projects",
+        "investments": "Attracted investments ($)",
+        "students": "Trained students"
+      }
+    },
+    "services": {
+      "badge": "Inclusive environment",
+      "sectionTitle": "TUIT INCUBATION CENTER",
+      "sectionDescription": "The center operates 24/7 and provides all conditions for students to build startup projects.",
+      "cards": [
+        {
+          "title": "Design",
+          "text": "If you have an idea or startup but do not know how to implement it, we help you at every step."
+        },
+        {
+          "title": "Robotics",
+          "text": "We support your business with software solutions and ideas to accelerate project growth."
+        },
+        {
+          "title": "Coworking",
+          "text": "With us, you gain programming skills and can become a highly qualified developer."
+        }
+      ],
+      "techTitle": "Technologies we use"
+    },
+    "news": {
+      "title": "News and announcements",
+      "viewAll": "View all projects"
+    },
+    "tasks": {
+      "title": "Main tasks",
+      "points": [
+        "Support startup projects of professors, researchers, master's students and talented students;",
+        "Select talented young developers through startup competitions and contests;",
+        "Increase student engagement in the 'One Million Programmers' initiative and broaden participation;",
+        "Develop and implement software products for the university and organizations through the incubation center;",
+        "Organize master classes, trainings, meetings and webinars with IT Park residents."
+      ]
+    },
+    "team": {
+      "title": "Our team"
+    },
+    "footer": {
+      "newsletterTitle": "Ready to move forward and get the latest updates.",
+      "newsletterPlaceholder": "Enter your email",
+      "socialTitle": "Follow us",
+      "usefulLinksTitle": "Useful links",
+      "usefulLinks": [
+        "About Center",
+        "TUIT Incubation Center",
+        "Research Projects",
+        "Journals",
+        "Conferences",
+        "Commercialization"
+      ],
+      "contactTitle": "Contact us",
+      "contacts": [
+        "TUIT INCUBATION CENTER",
+        "Address: 108 Amir Temur Avenue, Tashkent 100084",
+        "Working hours: Monday - Friday (09:00 - 18:00)",
+        "Phone: +998 71 238 64 15",
+        "E-mail: info@tuit.uz",
+        "Sunday is a day off"
+      ],
+      "copyright": "© 2022 TUIT INCUBATION CENTER"
+    }
+  },
+  "aboutPage": {
+    "title": "About Center",
+    "subtitle": "Full information about TUIT Incubation Center",
+    "employeesTitle": "Employee list:",
+    "addressLabel": "Address:",
+    "address": "108 Amir Temur Avenue, Tashkent 100084",
+    "building": "TUIT (E block)",
+    "paragraphs": [
+      "Research and technology transfer center of Muhammad al-Khwarizmi Tashkent University of Information Technologies.",
+      "Organizing and implementing competitions for fundamental, applied, innovative and startup projects while increasing participation of young scientists.",
+      "Preparing organizational documents and controlling financing for projects implemented under state programs.",
+      "Creating favorable conditions for talented youth to develop startups and innovative projects.",
+      "Commercializing the university's scientific work and research outcomes.",
+      "Organizing national scientific and practical conferences."
+    ]
+  },
+  "incubationPage": {
+    "title": "TUIT Incubation Center",
+    "subtitle": "TUIT Incubation Center activities",
+    "descriptionTitle": "Activities of TUIT INCUBATION CENTER at TUIT named after Muhammad al-Khwarizmi",
+    "descriptionParagraphs": [
+      "The center monitors, selects and incubates startup ideas, develops software products and supports implementation.",
+      "The center has coworking, design, robotics and special zones for developers where students realize their ideas.",
+      "Work is carried out on memorandums with enterprises and presentations of student projects to investors.",
+      "The main focus is developing youth startup projects and building a supportive environment for growth."
+    ],
+    "projectsTitle": "Projects and startups",
+    "emptyProjects": "No projects available yet."
+  },
+  "researchPage": {
+    "title": "Research Projects",
+    "subtitle": "Projects of the research center at TUIT",
+    "yearSuffix": "year",
+    "projectsSuffix": "projects",
+    "contract": "Contract",
+    "leader": "Project leader",
+    "notFoundForYear": "No projects found for {year}",
+    "emptyTitle": "No projects",
+    "emptyDesc": "No research project data has been added yet.",
+    "other": "Other"
+  },
+  "journalsPage": {
+    "title": "Journals",
+    "subtitle": "Information about scientific journals operating at the university.",
+    "empty": "No journal information is available yet.",
+    "openJournal": "Open journal link",
+    "articleTitle": "Submit article",
+    "fullName": "Full name *",
+    "email": "Email *",
+    "phone": "Phone number *",
+    "journalType": "Journal type *",
+    "noJournal": "No journals available",
+    "articleUpload": "Upload article *",
+    "chooseFile": "Choose file",
+    "fileNotSelected": "No file selected",
+    "send": "Submit",
+    "contactTitle": "Contact us",
+    "contactSubtitle": "We will contact you as soon as we receive your message",
+    "contactHours": "We are available 24/7. Call now.",
+    "emailLabel": "Email:",
+    "addressLabel": "Address:",
+    "requiredError": "Please fill in all required fields.",
+    "success": "Your article submission request has been received."
+  },
+  "commercializationPage": {
+    "title": "Commercialization",
+    "subtitle": "Information about commercialization of research results.",
+    "details": "Details",
+    "features": "Features",
+    "usage": "Usage area",
+    "prevImage": "Previous image",
+    "nextImage": "Next image"
+  },
+  "commercializationDetail": {
+    "project": "Project",
+    "defaultTitle": "Commercialization project",
+    "defaultDesc": "Detailed project information page.",
+    "notFoundTitle": "Project not found",
+    "notFoundDesc": "Sorry, this project does not exist or has been removed.",
+    "back": "Go back"
+  },
+  "login": {
+    "title": "Admin panel",
+    "subtitle": "Test mode: use admin / admin to sign in",
+    "error": "Error! For test use Login: admin, Password: admin.",
+    "username": "Login",
+    "password": "Password",
+    "submit": "Sign in"
+  }
+}
