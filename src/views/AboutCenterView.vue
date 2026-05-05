@@ -11,20 +11,20 @@ const { t, tm } = useI18n()
 const { content } = useHomepageContent()
 const { locale, getLocalizedValue } = useLocalizedContent()
 
-const defaultAbout = {
+const defaultAbout = () => ({
   title: t('aboutPage.title'),
   subtitle: t('aboutPage.subtitle'),
-  description: 'Universitetning professor o‘qituvchilar, tadqiqotchilar, magistrantlar va iqtidorli talabalarning STARTAP loyihalarini qo‘llab-quvvatlash, ularga zamonaviy IT-infratuzilmani taqdim etish va innovatsion muhit yaratish markazning asosiy maqsadidir.\n\nMarkazda yosh iqtidorlarning g\'oyalarini biznes loyihalarga aylantirish, mentorlik qilish hamda ularni startaplarga mos formatda tayyorlash bo\'yicha malakali xodimlar doimiy xizmat ko\'rsatadi.',
+  description: tm('aboutPage.paragraphs').join('\n\n'),
   image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80',
-  leadersTitle: 'Boshqaruv va Xodimlar',
-  leaders: []
-}
+  leadersTitle: t('aboutPage.leadersTitle'),
+  leaders: [],
+})
 
-const aboutData = ref({ ...defaultAbout })
+const aboutData = ref(defaultAbout())
 
 const loadAbout = async () => {
   const localizedDefault = {
-    ...defaultAbout,
+    ...defaultAbout(),
     title: t('aboutPage.title'),
     subtitle: t('aboutPage.subtitle'),
   }
@@ -44,7 +44,6 @@ watch(locale, async () => {
 
 <template>
   <div class="min-h-screen bg-[#ececef] text-[#1a2744] font-sans selection:bg-[#ff6224] selection:text-white flex flex-col">
-    <!-- HEADER -->
     <HeaderSection :nav="content.nav" class="bg-[#070511]" />
     
     <main class="overflow-x-hidden flex-1 pb-24">
@@ -52,14 +51,14 @@ watch(locale, async () => {
       <!-- Hero Banner -->
       <section class="relative pt-[120px] pb-16 md:pt-[160px] md:pb-24 lg:pt-[200px] lg:pb-[120px] overflow-hidden bg-[#070511]">
         <div class="absolute inset-0 z-0">
-          <img v-if="aboutData.image" :src="aboutData.image" alt="Markaz haqida rasmi" class="w-full h-full object-cover opacity-20 transform scale-105" @error="$event.target.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80'" />
-          <img v-else src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80" alt="Background" class="w-full h-full object-cover opacity-20 transform scale-105" />
+          <img v-if="aboutData.image" :src="aboutData.image" :alt="t('aboutPage.title')" class="w-full h-full object-cover opacity-20 transform scale-105" @error="$event.target.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80'" />
+          <img v-else src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=2000&q=80" :alt="t('aboutPage.title')" class="w-full h-full object-cover opacity-20 transform scale-105" />
           <div class="absolute inset-0 bg-linear-to-b from-[#070511]/90 via-[#070511]/70 to-[#070511]"></div>
         </div>
         <div class="container relative z-10 mx-auto px-4 md:px-6">
           <div class="max-w-5xl text-left" v-motion :initial="{ opacity: 0, y: 30 }" :enter="{ opacity: 1, y: 0, transition: { duration: 800, type: 'spring' } }">
             <div class="text-[#ff6224] font-bold text-sm md:text-base tracking-wider uppercase mb-4 flex items-center gap-2">
-              <span class="text-white/70">{{ t('common.home') }}</span>
+              <RouterLink to="/" class="text-white/70 hover:text-white transition-colors">{{ t('common.home') }}</RouterLink>
               <span class="w-1 h-1 rounded-full bg-white/50"></span>
               <span>{{ t('aboutPage.title') }}</span>
             </div>

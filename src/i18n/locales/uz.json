@@ -116,6 +116,7 @@
   "aboutPage": {
     "title": "Markaz haqida",
     "subtitle": "TUIT Incubation Center haqida to'liq ma'lumot",
+    "leadersTitle": "Boshqaruv va xodimlar",
     "employeesTitle": "Xodimlar ro'yxati:",
     "addressLabel": "Manzil:",
     "address": "Toshkent 100084, Amir Temur shox ko'chasi 108 uy",
@@ -157,6 +158,8 @@
   "journalsPage": {
     "title": "Jurnallar",
     "subtitle": "Universitetda faoliyat yuritayotgan ilmiy jurnallar haqida ma'lumotlar.",
+    "requirementsTitle": "JURNAL NIZOMI VA TALABNOMASI",
+    "applicationText": "JURNAL TALABNOMASI",
     "empty": "Hozircha jurnallar ma'lumoti mavjud emas.",
     "openJournal": "Jurnal havolasini ochish",
     "articleTitle": "Maqola yuborish",
@@ -193,6 +196,10 @@
     "notFoundTitle": "Loyiha topilmadi",
     "notFoundDesc": "Kechirasiz, bu loyiha mavjud emas yoki o‘chirilgan.",
     "back": "Orqaga qaytish"
+  },
+  "teamSection": {
+    "title": "Bizning jamoa",
+    "badge": "TUIT INCUBATION"
   },
   "login": {
     "title": "Admin panel",

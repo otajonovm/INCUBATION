@@ -116,6 +116,7 @@
   "aboutPage": {
     "title": "О центре",
     "subtitle": "Полная информация о TUIT Incubation Center",
+    "leadersTitle": "Руководство и сотрудники",
     "employeesTitle": "Список сотрудников:",
     "addressLabel": "Адрес:",
     "address": "Ташкент 100084, ул. Амира Темура, дом 108",
@@ -157,6 +158,8 @@
   "journalsPage": {
     "title": "Журналы",
     "subtitle": "Информация о научных журналах университета.",
+    "requirementsTitle": "ПОЛОЖЕНИЕ И ТРЕБОВАНИЯ ЖУРНАЛА",
+    "applicationText": "ЗАЯВКА В ЖУРНАЛ",
     "empty": "Информация о журналах пока отсутствует.",
     "openJournal": "Открыть ссылку журнала",
     "articleTitle": "Отправить статью",
@@ -193,6 +196,10 @@
     "notFoundTitle": "Проект не найден",
     "notFoundDesc": "Извините, этот проект не существует или удален.",
     "back": "Назад"
+  },
+  "teamSection": {
+    "title": "Наша команда",
+    "badge": "TUIT INCUBATION"
   },
   "login": {
     "title": "Панель администратора",

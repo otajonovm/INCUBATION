@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { setLocale, SUPPORTED_LOCALES } from '../../i18n';
@@ -17,6 +17,7 @@ const route = useRoute();
 const { locale, t } = useI18n();
 
 const languageOptions = SUPPORTED_LOCALES;
+const activeLocaleLabel = computed(() => t(`language.${locale.value}`));
 
 const changeLocale = (nextLocale) => {
   setLocale(nextLocale);
@@ -52,7 +53,7 @@ const navigate = (href) => {
       <div class="flex h-[82px] items-center justify-between gap-4">
 
         <!-- Desktop Nav -->
-        <nav class="hidden lg:flex items-center gap-8 justify-center flex-1" aria-label="Asosiy navigatsiya">
+        <nav class="hidden lg:flex items-center gap-4 xl:gap-5 justify-center flex-1 min-w-0" aria-label="Asosiy navigatsiya">
           <a 
             v-for="(link, index) in nav.links" 
             :key="link.label" 
@@ -61,7 +62,7 @@ const navigate = (href) => {
             v-motion
             :initial="{ opacity: 0, y: -10 }"
             :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 200, duration: 500 } }"
-            class="relative text-white/80 font-medium text-[16px] xl:text-[18px] transition-colors duration-300 hover:text-white group py-2"
+            class="relative text-white/80 font-medium text-[13px] xl:text-[14px] whitespace-nowrap transition-colors duration-300 hover:text-white group py-2"
           >
             {{ link.label }}
             <!-- Animated underline effect -->
@@ -74,24 +75,36 @@ const navigate = (href) => {
           v-motion
           :initial="{ opacity: 0, scale: 0.9 }"
           :enter="{ opacity: 1, scale: 1, transition: { delay: 600, duration: 400 } }"
-          class="shrink-0 flex items-center gap-2 md:gap-4 z-50"
+          class="shrink-0 flex items-center gap-2 md:gap-3 z-50"
         >
-          <div class="hidden md:flex items-center rounded-full border border-white/15 bg-white/5 p-1" :aria-label="t('language.switcherAria')">
+          <div class="relative hidden md:block group" :aria-label="t('language.switcherAria')">
             <button
-              v-for="lang in languageOptions"
-              :key="lang"
               type="button"
-              @click="changeLocale(lang)"
-              class="px-2.5 py-1.5 rounded-full text-xs font-semibold transition-colors"
-              :class="locale === lang ? 'bg-white text-[#070511]' : 'text-white/80 hover:text-white'"
+              class="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[12px] font-semibold text-white/90 hover:text-white transition-colors"
             >
-              {{ t(`language.${lang}`) }}
+              {{ activeLocaleLabel }}
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+              </svg>
             </button>
+
+            <div class="absolute right-0 top-full mt-2 min-w-[130px] rounded-xl border border-white/15 bg-[#0d1020]/95 p-1.5 shadow-xl opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
+              <button
+                v-for="lang in languageOptions"
+                :key="lang"
+                type="button"
+                @click="changeLocale(lang)"
+                class="w-full text-left px-3 py-2 rounded-lg text-[12px] font-medium transition-colors"
+                :class="locale === lang ? 'bg-white text-[#070511]' : 'text-white/85 hover:bg-white/10 hover:text-white'"
+              >
+                {{ t(`language.${lang}`) }}
+              </button>
+            </div>
           </div>
 
           <a 
             href="#" 
-            class="hidden sm:inline-flex group items-center gap-2 justify-center rounded-full bg-linear-to-r from-[#ff6224] to-[#ff4200] text-white px-5 py-[10px] md:py-[12px] md:px-[28px] text-[14px] md:text-[16px] font-bold shadow-[0_8px_20px_rgba(255,98,36,0.3)] hover:shadow-[0_12px_25px_rgba(255,98,36,0.4)] hover:-translate-y-1 transition-all duration-300"
+            class="hidden sm:inline-flex group items-center gap-2 justify-center rounded-full bg-linear-to-r from-[#ff6224] to-[#ff4200] text-white px-4 py-[9px] md:py-[10px] md:px-[20px] text-[12px] md:text-[13px] font-bold shadow-[0_8px_20px_rgba(255,98,36,0.3)] hover:shadow-[0_12px_25px_rgba(255,98,36,0.4)] hover:-translate-y-1 transition-all duration-300 whitespace-nowrap"
           >
             {{ nav.cta }}
             <!-- Smooth arrow icon -->

@@ -1,13 +1,16 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import HeaderSection from '../components/sections/HeaderSection.vue'
 import FooterSection from '../components/sections/FooterSection.vue'
-import homepageContent from '../data/homepageContent'
-import { normalizeContent } from '../utils/textNormalize'
+import { useHomepageContent } from '../composables/useHomepageContent'
+import { useLocalizedContent } from '../composables/useLocalizedContent'
 import { supabase } from '../supabase'
 
-const content = normalizeContent(homepageContent)
+const { t } = useI18n()
+const { content } = useHomepageContent()
+const { locale, getLocalizedValue } = useLocalizedContent()
 const route = useRoute()
 const router = useRouter()
 
@@ -110,24 +113,24 @@ const nextImage = () => {
   activeImageIndex.value = (activeImageIndex.value + 1) % gallery.length
 }
 
-onMounted(async () => {
-  window.scrollTo(0, 0)
-
+const loadItems = async () => {
+  loading.value = true
   try {
-    const { data, error } = await supabase
-      .from('site_content')
-      .select('value')
-      .eq('key', 'site_commercialization')
-      .maybeSingle()
-
-    if (!error && Array.isArray(data?.value) && data.value.length > 0) {
-      allItems.value = withSlugs(data.value)
-    } else {
-      allItems.value = withSlugs(defaultCommercialization)
-    }
+    const localized = await getLocalizedValue(supabase, 'site_commercialization', defaultCommercialization)
+    const source = Array.isArray(localized) && localized.length > 0 ? localized : defaultCommercialization
+    allItems.value = withSlugs(source)
   } finally {
     loading.value = false
   }
+}
+
+onMounted(async () => {
+  window.scrollTo(0, 0)
+  await loadItems()
+})
+
+watch(locale, async () => {
+  await loadItems()
 })
 </script>
 
@@ -144,29 +147,29 @@ onMounted(async () => {
         <div class="container relative z-10 mx-auto px-4 md:px-6">
           <div class="max-w-5xl text-left">
             <div class="text-[#ff6224] font-bold text-sm md:text-base tracking-wider uppercase mb-4 flex items-center gap-2">
-              <span class="text-white/70">Home</span>
+              <RouterLink to="/" class="text-white/70 hover:text-white transition-colors">{{ t('common.home') }}</RouterLink>
               <span class="w-1 h-1 rounded-full bg-white/50"></span>
-              <span @click="router.push('/commercialization')" class="cursor-pointer hover:text-white">Tijoratlashtirish</span>
+              <span @click="router.push('/commercialization')" class="cursor-pointer hover:text-white">{{ t('commercializationPage.title') }}</span>
               <span class="w-1 h-1 rounded-full bg-white/50"></span>
-              <span>{{ currentItem?.title || 'Loyiha' }}</span>
+              <span>{{ currentItem?.title || t('commercializationDetail.project') }}</span>
             </div>
             <h1 class="text-3xl md:text-5xl lg:text-[56px] font-black text-white leading-tight mb-5">
-              {{ currentItem?.title || 'Tijoratlashtirish loyihasi' }}
+              {{ currentItem?.title || t('commercializationDetail.defaultTitle') }}
             </h1>
             <p class="text-lg md:text-2xl text-white/90 font-medium max-w-3xl leading-relaxed">
-              {{ currentItem?.shortDescription || 'Loyiha haqida to‘liq ma\'lumot sahifasi.' }}
+              {{ currentItem?.shortDescription || t('commercializationDetail.defaultDesc') }}
             </p>
           </div>
         </div>
       </section>
 
       <section class="mx-auto w-full max-w-[1200px] px-4 md:px-6 py-12 md:py-16">
-        <div v-if="loading" class="text-center py-16 text-gray-500">Yuklanmoqda...</div>
+        <div v-if="loading" class="text-center py-16 text-gray-500">{{ t('common.loading') }}</div>
 
         <div v-else-if="!currentItem" class="bg-white rounded-xl border border-gray-200 p-8 text-center">
-          <h2 class="text-2xl font-bold mb-3">Loyiha topilmadi</h2>
-          <p class="text-gray-600 mb-5">Kechirasiz, bu loyiha mavjud emas yoki o‘chirilgan.</p>
-          <button @click="router.push('/commercialization')" class="px-5 py-2.5 rounded-lg bg-[#197b9b] text-white font-semibold">Orqaga qaytish</button>
+          <h2 class="text-2xl font-bold mb-3">{{ t('commercializationDetail.notFoundTitle') }}</h2>
+          <p class="text-gray-600 mb-5">{{ t('commercializationDetail.notFoundDesc') }}</p>
+          <button @click="router.push('/commercialization')" class="px-5 py-2.5 rounded-lg bg-[#197b9b] text-white font-semibold">{{ t('commercializationDetail.back') }}</button>
         </div>
 
         <div v-else class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-8">
@@ -185,7 +188,7 @@ onMounted(async () => {
 
           <aside class="space-y-5">
             <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
-              <div class="bg-[#138000] text-white px-4 py-3 text-2xl font-bold">{{ currentItem.featuresTitle || 'Funksiyalari' }}:</div>
+              <div class="bg-[#138000] text-white px-4 py-3 text-2xl font-bold">{{ currentItem.featuresTitle || t('commercializationPage.features') }}:</div>
               <ul class="p-4 space-y-2 text-[15px] text-[#1a2744]">
                 <li v-for="(feature, fIndex) in currentItem.features || []" :key="fIndex" class="flex gap-2">
                   <span class="text-[#138000]">›</span>
@@ -195,7 +198,7 @@ onMounted(async () => {
             </div>
 
             <div class="border border-gray-200 rounded-lg overflow-hidden bg-white">
-              <div class="bg-[#138000] text-white px-4 py-3 text-2xl font-bold">{{ currentItem.usageTitle || "Qo'llanilish sohasi" }}:</div>
+              <div class="bg-[#138000] text-white px-4 py-3 text-2xl font-bold">{{ currentItem.usageTitle || t('commercializationPage.usage') }}:</div>
               <ul class="p-4 space-y-2 text-[15px] text-[#1a2744]">
                 <li v-for="(usage, uIndex) in currentItem.usages || []" :key="uIndex" class="flex gap-2">
                   <span class="text-[#138000]">›</span>

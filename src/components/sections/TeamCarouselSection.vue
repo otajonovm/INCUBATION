@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import BaseCarousel from '../common/BaseCarousel.vue'
 import { supabase } from '../../supabase'
 import { useLocalizedContent } from '../../composables/useLocalizedContent'
@@ -13,6 +14,7 @@ const props = defineProps({
 
 const teamMembers = ref([])
 let teamChannel = null
+const { t } = useI18n()
 const { locale, localizedKey, getLocalizedValue } = useLocalizedContent()
 
 const defaultTeamMembers = [
@@ -63,8 +65,8 @@ onUnmounted(() => {
 
     <div class="mx-auto w-full max-w-[1280px] px-4 md:px-6">
       <div class="text-center mb-16" v-motion :initial="{ opacity: 0, y: 30 }" :visible="{ opacity: 1, y: 0, transition: { duration: 600 } }">
-        <h2 class="text-4xl md:text-[60px] font-bold leading-tight mb-4 inline-block text-transparent bg-clip-text bg-gradient-to-r from-[#2c4deb] to-[#5e73ff]">
-          {{ team.title || 'Bizning Jamoa' }}
+        <h2 class="text-4xl md:text-[60px] font-bold leading-tight mb-4 inline-block text-transparent bg-clip-text bg-linear-to-r from-[#2c4deb] to-[#5e73ff]">
+          {{ team.title || t('teamSection.title') }}
         </h2>
       </div>
 
@@ -82,7 +84,7 @@ onUnmounted(() => {
                 <!-- Content -->
                 <h3 class="m-0 text-xl md:text-2xl font-extrabold text-[#1a2744] group-hover:text-[#2c4deb] transition-colors">{{ item.name }}</h3>
                 <p class="m-0 mt-1 text-[#ff6224] font-semibold text-sm md:text-base tracking-wide uppercase">{{ item.role }}</p>
-                <div class="w-12 h-1 bg-gradient-to-r from-[#2c4deb] to-[#5e73ff] rounded-full my-4 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div class="w-12 h-1 bg-linear-to-r from-[#2c4deb] to-[#5e73ff] rounded-full my-4 opacity-50 group-hover:opacity-100 transition-opacity"></div>
                 <p class="min-h-[96px] md:min-h-[120px] text-[#53627f] text-sm md:text-[15px] leading-relaxed line-clamp-4">{{ item.description }}</p>
               </div>
 
@@ -90,7 +92,7 @@ onUnmounted(() => {
               <div class="mt-8 pt-5 border-t border-gray-100 flex justify-between items-center w-full">
                 <span class="text-xs md:text-sm font-bold text-[#1a2744] uppercase tracking-wider flex items-center gap-2">
                   <div class="w-5 h-5 rounded-full bg-[#2c4deb]/10 flex items-center justify-center text-[10px]">✨</div>
-                  TUIT INCUBATION
+                  {{ t('teamSection.badge') }}
                 </span>
               </div>
             </article>

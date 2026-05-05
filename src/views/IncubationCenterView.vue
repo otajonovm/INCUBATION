@@ -1,19 +1,25 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import HeaderSection from '../components/sections/HeaderSection.vue'
 import FooterSection from '../components/sections/FooterSection.vue'
 import NewsCarouselSection from '../components/sections/NewsCarouselSection.vue'
 import TasksSection from '../components/sections/TasksSection.vue'
-import homepageContent from '../data/homepageContent'
-import { normalizeContent } from '../utils/textNormalize'
+import { useHomepageContent } from '../composables/useHomepageContent'
+import { useLocalizedContent } from '../composables/useLocalizedContent'
 import { supabase } from '../supabase'
 
-const content = normalizeContent(homepageContent)
+const { t, tm } = useI18n()
+const { content } = useHomepageContent()
+const { locale, getLocalizedValue } = useLocalizedContent()
 
-// Bosh sahifa ma'lumotlarini to'g'rilaymiz (news, tasks)
 const newsData = ref([])
-const tasksData = ref(content.tasks)
+const tasksData = computed(() => content.value.tasks)
 const projectsData = ref([])
+const newsSection = computed(() => ({
+  title: t('homePage.news.title'),
+  items: newsData.value,
+}))
 
 const defaultProjects = [
   {
@@ -39,28 +45,23 @@ const defaultProjects = [
   }
 ]
 
+const loadPageData = async () => {
+  const [projects, news] = await Promise.all([
+    getLocalizedValue(supabase, 'site_projects', defaultProjects),
+    getLocalizedValue(supabase, 'site_news', tm('homePage.news.defaultItems') || content.value.news.items),
+  ])
+
+  projectsData.value = Array.isArray(projects) && projects.length > 0 ? projects : defaultProjects
+  newsData.value = Array.isArray(news) && news.length > 0 ? news : content.value.news.items
+}
+
 onMounted(async () => {
   window.scrollTo(0, 0)
-  
-  // Loyihalar va Startaplar malumotlarini olish
-  const { data: pData } = await supabase.from('site_content').select('value').eq('key', 'site_projects').maybeSingle()
-  if (pData?.value && Array.isArray(pData.value)) {
-    projectsData.value = pData.value
-  } else {
-    projectsData.value = defaultProjects
-  }
+  await loadPageData()
+})
 
-  // Yangiliklarni jalb qilish
-  const { data: nData } = await supabase.from('site_content').select('value').eq('key', 'site_news').maybeSingle()
-  if (nData?.value) {
-    newsData.value = nData.value
-  } else {
-    newsData.value = content.news.items
-  }
-  
-  // Vazifalarni ham olish mumkin, lekin hozir tasksData static homepageContent dan olinyapti.
-  // Agar vazifalar bazada bo'lsa:
-  // const { data: tData } = await supabase.from('site_content').select('value').eq('key', 'site_tasks').maybeSingle()
+watch(locale, async () => {
+  await loadPageData()
 })
 
 // Paginatsiya mantiqi
@@ -101,15 +102,15 @@ const changePage = (page) => {
         <div class="container relative z-10 mx-auto px-4 md:px-6">
           <div class="max-w-5xl text-left">
             <div class="text-[#ff6224] font-bold text-sm md:text-base tracking-wider uppercase mb-4 flex items-center gap-2">
-              <span class="text-white/70">Home</span>
+              <RouterLink to="/" class="text-white/70 hover:text-white transition-colors">{{ t('common.home') }}</RouterLink>
               <span class="w-1 h-1 rounded-full bg-white/50"></span>
-              <span>TUIT Incubation Center</span>
+              <span>{{ t('incubationPage.title') }}</span>
             </div>
             <h1 class="text-4xl md:text-6xl lg:text-[72px] font-black text-white leading-tight mb-6">
-              TUIT Incubation Center
+              {{ t('incubationPage.title') }}
             </h1>
             <p class="text-lg md:text-2xl text-white/90 font-medium max-w-3xl leading-relaxed">
-              Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti "TUIT INCUBATION CENTER" faoliyati
+              {{ t('incubationPage.subtitle') }}
             </p>
           </div>
         </div>
@@ -118,28 +119,17 @@ const changePage = (page) => {
       <!-- Statik Matn qismi -->
       <div class="mx-auto w-full max-w-[1200px] px-4 md:px-6 py-12 md:py-20">
         <h2 class="text-3xl md:text-4xl font-extrabold text-[#1a2744] mb-8 text-center md:text-left leading-tight">
-          Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti "TUIT INCUBATION CENTER" faoliyati
+          {{ t('incubationPage.descriptionTitle') }}
         </h2>
         
         <div class="prose prose-lg max-w-none text-[#53627f] leading-relaxed font-medium space-y-6 text-[16px] md:text-[17px]">
-          <p>
-            Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti "TUIT INCUBATION CENTER" faoliyati ilg'or startap g'oyalar va innovatsion ishlarni monitoring qilish, tanlash hamda inkubatsiya qilish, dasturiy mahsulot yaratish va amaliyotga tadbiq etish kabi vazifalarini bajaradi. Universitetda faoliyati boshlangan markazda kovorking, Dizayn, robototexnika, dasturchilar uchun maxsus bo'limlarda talabalar o'z ilmiy g'oyalarini amalga oshirish uchun ish olib bormoqda. Inkubatsiya markazida talabalar uchun ilmiy-texnik g'oyalarni amalga oshiruvchi kichik innovatsion loyihalarning samarali faoliyat ko'rsatishi uchun qulay shart-sharoitlar yaratib berilgan.
-          </p>
-          <p>
-            Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti "TUIT INCUBATION CENTER" faoliyati boshlangandan buyon korxona va tashkilotlar bilan Memorandumlar imzolash, Talabalarning loyihalarini xorijiy va mahalliy investorlarga taqdimotlari tashkil etish va "IT-Park" yaqin hamkorlikda startap loyihalarni shakllantirish ustida ish olib bormoqda.
-          </p>
-          <p>
-            Hozirda talabalarning ilmiy-texnik muammolarining yechimiga yyo'naltirilgan ilg'or va innovatsion ishlanmalar, texnologik loyiha va startap loyihalar bazasini shakllantirish bo'yicha universitet talabalari bilan hamkorlikda loyihalar shakllantirilmoqda. Jumladan bir necha mahalliy korxonalarining dasturiy ta'minotlarini ishlab chiqish ustida ish olib bormoqda. Talabalarning bitiruv malakaviy ishlari, magistrlik dissertatsiyalari mavzularini ushbu ilmiy muammolariga yo'naltirilish va startap loyiha tarzida amaliyotga tadbiq etish ishlari amalga oshirilmoqda.
-          </p>
-          <p>
-            Muhammad al-Xorazmiy nomidagi Toshkent axborot texnologiyalari universiteti "TUIT INCUBATION CENTER" universitetda IT sohasidagi loyihalarni tayyorlash va rivojlantirish uchun qulay shart-sharoitlar yaratish, yoshlar uchun dasturlashga oid sohalarda talab etiladigan innovatsion yechimlarni amalda tadbiq qilishga imkon yaratish maqsadida yoshlar startap-loyihalarini rivojlantirish uchun xizmat qilish asosiy faoliyat yo'nalishidir.
-          </p>
+          <p v-for="(paragraph, index) in tm('incubationPage.descriptionParagraphs')" :key="index">{{ paragraph }}</p>
         </div>
       </div>
 
       <!-- Yangiliklar va e'lonlar (Home pagedan) -->
       <div class="bg-white py-12 md:py-16 border-t border-gray-100">
-         <NewsCarouselSection :news="{ title: 'Yangiliklar va e\'lonlar', items: newsData }" />
+        <NewsCarouselSection :news="newsSection" />
       </div>
 
       <!-- Asosiy Vazifalar (Home pagedan) -->
@@ -150,7 +140,7 @@ const changePage = (page) => {
       <!-- Loyiha va Startaplar (Dinamik + Paginatsiya) -->
       <div id="projects-section" class="mx-auto w-full max-w-[1200px] px-4 md:px-6 py-16 md:py-24">
         <h2 class="text-3xl md:text-5xl font-extrabold text-[#1a2744] mb-12 text-center tracking-tight">
-          Loyiha va Startaplar
+          {{ t('incubationPage.projectsTitle') }}
         </h2>
 
         <div v-if="paginatedProjects.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -190,7 +180,7 @@ const changePage = (page) => {
         </div>
         
         <div v-else class="text-center py-12 text-gray-500 text-lg">
-          Hozircha loyihalar mavjud emas.
+          {{ t('incubationPage.emptyProjects') }}
         </div>
 
         <!-- Pagination -->
